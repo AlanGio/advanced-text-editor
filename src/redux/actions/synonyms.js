@@ -12,7 +12,6 @@ export const getSynonyms = payload => dispatch => {
     meta: api.synonyms
       .getSynonyms(payload)
       .then(response => {
-        console.log(payload);
           dispatch({
             type: GET_SYNONYMS_SUCCESS,
             payload: {

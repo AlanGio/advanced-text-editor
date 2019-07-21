@@ -22,7 +22,6 @@ export default (state = initialState, action) => {
         error: action.payload.error,
       };
     case GET_TEXT_TO_FORMAT:
-      console.log(action);
       return {
         ...state,
       };

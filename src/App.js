@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import ControlPanel from "./components/control-panel/ControlPanel";
 import FileZone from "./components/file-zone/FileZone";
+import SynonymsBox from "./components/synonyms-box/SynonymsBox";
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
@@ -13,17 +14,41 @@ class App extends Component {
     constructor(props) {
         super(props);
         props.actions.getInitialText();
+        this.state = {
+            selectedText: '',
+        }
     }
 
     getSelectedTex = text => {
-        if (text.length > 0) {
+        if (text.length > 0 && text !==' ' && text.length < 15) {
             this.props.actions.getSynonyms(text);
+            this.setState({ selectedText: text });
+        }
+    }
+
+    replaceSynonym = (e) => {
+        this.replaceSelectedText(e.currentTarget.textContent);
+    };
+
+
+    replaceSelectedText = (replacementText)  => {
+        var range;
+        if (window.getSelection) {
+            const sel = window.getSelection();
+            if (sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode(replacementText));
+            }
+        } else if (document.selection && document.selection.createRange) {
+            range = document.selection.createRange();
+            range.text = replacementText;
         }
     }
 
     render() {
-        console.log(this.props.synonyms);
         const { synonyms } = this.props;
+        const { selectedText } = this.state;
         return (
             <div className="App">
                 <header>
@@ -40,14 +65,11 @@ class App extends Component {
                         selectedText={(e) => this.getSelectedTex(e)}
                     />
 
-                    <div>
-                        <div>{synonyms && synonyms.loading && 'Loading'}</div>
-                        <ul>
-                            {synonyms && !synonyms.loading && synonyms.data.map(({ word, score }) => (
-                                <li key={score}>{word}</li>
-                            ))}
-                        </ul>
-                    </div>
+                    <SynonymsBox
+                        synonyms={synonyms}
+                        selectedText={selectedText}
+                        replaceSynonym={(e) => this.replaceSynonym(e)}
+                    />
                 </main>
             </div>
         );

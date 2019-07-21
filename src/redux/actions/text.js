@@ -32,7 +32,6 @@ export const getInitialText = payload => dispatch => {
 };
 
 export function getTextToFormat(payload, formatType) {
-  console.log(payload, formatType);
   return {
     type: GET_TEXT_TO_FORMAT,
     payload: {

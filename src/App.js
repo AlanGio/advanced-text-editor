@@ -20,7 +20,7 @@ class App extends Component {
     }
 
     getSelectedTex = text => {
-        if (text.length > 0 && text !==' ' && text.length < 15) {
+        if (text.length > 0 && text !==' ' && text.length < 20) {
             this.props.actions.getSynonyms(text);
             this.setState({ selectedText: text });
         }
@@ -55,11 +55,7 @@ class App extends Component {
                     <span>Simple Text Editor</span>
                 </header>
                 <main>
-                    <ControlPanel
-                        bold={() => this.bold()}
-                        italic={() => this.italic()}
-                        underline={() => this.underline()}
-                    />
+                    <ControlPanel />
                     <FileZone 
                         text={this.props.text.text}
                         selectedText={(e) => this.getSelectedTex(e)}

@@ -4,39 +4,27 @@ import {
   GET_INITIAL_TEXT_REQUEST,
   GET_INITIAL_TEXT_SUCCESS,
   GET_INITIAL_TEXT_ERROR,
-  GET_TEXT_TO_FORMAT,
 } from '../constants';
 
-export const getInitialText = payload => dispatch => {
+export const getInitialText = () => (dispatch) => {
   dispatch({
     type: GET_INITIAL_TEXT_REQUEST,
     meta: getMockText()
-      .then(response => {
-          dispatch({
-            type: GET_INITIAL_TEXT_SUCCESS,
-            payload: {
-              text: response,
-            },
-          });
-        }
-      )
-      .catch(error =>
+      .then((response) => {
         dispatch({
-          type: GET_INITIAL_TEXT_ERROR,
+          type: GET_INITIAL_TEXT_SUCCESS,
           payload: {
-            error: error,
-          }
-        })
-      ),
-  })
+            text: response,
+          },
+        });
+      })
+      .catch(error => dispatch({
+        type: GET_INITIAL_TEXT_ERROR,
+        payload: {
+          error,
+        },
+      })),
+  });
 };
 
-export function getTextToFormat(payload, formatType) {
-  return {
-    type: GET_TEXT_TO_FORMAT,
-    payload: {
-      text: payload,
-      formatType
-    }
-  };
-}
+export default getInitialText;

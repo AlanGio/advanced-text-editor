@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   loading: false,
   data: [],
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-      }
+      };
     case GET_SYNONYMS_SUCCESS:
       return {
         ...state,
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
-  
+
     default:
       return state;
   }

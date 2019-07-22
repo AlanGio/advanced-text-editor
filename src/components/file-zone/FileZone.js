@@ -1,27 +1,30 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import './FileZone.css';
 
-class FileZone extends Component {
-    constructor(props) {
-        super(props);
-    }
+const FileZone = ({ text, selectedText }) => (
+  <div id="file-zone">
+    <div id="file">
+      <div
+        contentEditable
+        suppressContentEditableWarning
+        onMouseUp={() => selectedText(window.getSelection().toString())}
+        role="presentation"
+      >
+        {text}
+      </div>
+    </div>
+  </div>
+);
 
-    selectText = () => {
-        const { selectedText } = this.props;
-        selectedText(window.getSelection().toString());
-    };
-      
-    render() {
-        return (
-            <div id="file-zone">
-                <div id="file">
-                    <p contentEditable={true} suppressContentEditableWarning={true} onMouseUp={() => this.selectText()}>
-                        {this.props.text}
-                    </p>
-                </div>
-            </div>
-        );
-    }
-}
+FileZone.propTypes = {
+  text: PropTypes.string,
+  selectedText: PropTypes.func,
+};
+
+FileZone.defaultProps = {
+  text: '',
+  selectedText: () => {},
+};
 
 export default FileZone;

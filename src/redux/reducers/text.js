@@ -1,7 +1,4 @@
-import {
-  GET_INITIAL_TEXT_SUCCESS,
-  GET_INITIAL_TEXT_ERROR,
-} from '../constants';
+import { GET_INITIAL_TEXT_SUCCESS, GET_INITIAL_TEXT_ERROR } from '../constants';
 
 const initialState = {
   error: null,

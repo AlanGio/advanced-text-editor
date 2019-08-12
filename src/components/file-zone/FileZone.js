@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import './FileZone.css';
+import PropTypes from "prop-types";
+import React from "react";
+import "./FileZone.css";
 
 const FileZone = ({ text, selectedText }) => (
   <div id="file-zone">
@@ -19,12 +19,12 @@ const FileZone = ({ text, selectedText }) => (
 
 FileZone.propTypes = {
   text: PropTypes.string,
-  selectedText: PropTypes.func,
+  selectedText: PropTypes.func
 };
 
 FileZone.defaultProps = {
-  text: '',
-  selectedText: () => {},
+  text: "",
+  selectedText: () => {}
 };
 
 export default FileZone;
